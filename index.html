@@ -1,51 +1,157 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Bubble Game</title>
-		<meta charset="UTF-8" />
-		<link rel="stylesheet" type="text/css" href="./index.css" media="screen" />
-	</head>
+  <head>
+    <title>Bubble Game</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="./index.css" media="screen" />
+  </head>
 
-	<body>
-		<div class="content">
-			<div class="main">
-				<div class="left-container">
-					<div class="upperLeft">
-						<p class="score"></p>
-					</div>
-					<div class="bottomLeft"></div>
-				</div>
-				<div class="container">
-					<div class="message"></div>
-				</div>
-				<div class="right-container">
-					<div class="next"></div>
-				</div>
-			</div>
-			<div class="footer">
-				<div class="left">
-					<a href="#" class="credit">Credit</a>
-				</div>
-				<div class="right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
-						<path
-							d="M7.557 2.066A.75.75 0 0 1 8 2.75v10.5a.75.75 0 0 1-1.248.56L3.59 11H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.59l3.162-2.81a.75.75 0 0 1 .805-.124ZM11.28 5.72a.75.75 0 1 0-1.06 1.06L11.44 8l-1.22 1.22a.75.75 0 1 0 1.06 1.06l1.22-1.22 1.22 1.22a.75.75 0 1 0 1.06-1.06L13.56 8l1.22-1.22a.75.75 0 0 0-1.06-1.06L12.5 6.94l-1.22-1.22Z" />
-					</svg>
-					<input id="slider" type="range" value="75" class="w-full h-2 rounded-lg cursor-pointer accent-violet-400 bgm" />
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
-						<path
-							d="M7.557 2.066A.75.75 0 0 1 8 2.75v10.5a.75.75 0 0 1-1.248.56L3.59 11H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.59l3.162-2.81a.75.75 0 0 1 .805-.124ZM12.95 3.05a.75.75 0 1 0-1.06 1.06 5.5 5.5 0 0 1 0 7.78.75.75 0 1 0 1.06 1.06 7 7 0 0 0 0-9.9Z" />
-						<path d="M10.828 5.172a.75.75 0 1 0-1.06 1.06 2.5 2.5 0 0 1 0 3.536.75.75 0 1 0 1.06 1.06 4 4 0 0 0 0-5.656Z" />
-					</svg>
-				</div>
-			</div>
-		</div>
-		<div class="overlay hidden">
-			<div class="container">
-				<h2 class="header">Credits & Materials</h2>
-				<div class="splitter"></div>
-				<div class="scrollable-v">
-					<pre>
+  <body>
+    <div class="content">
+      <div class="main">
+        <div class="title"></div>
+        <div class="left-container">
+          <div class="upperLeft">
+            <p class="label">スコア</p>
+            <p class="score"></p>
+          </div>
+          <div class="bottomLeft"></div>
+        </div>
+        <div class="container">
+          <div class="message"></div>
+        </div>
+        <div class="right-container">
+          <div class="next">
+            <p class="label">ネクスト</p>
+            <img src="./Assets/Images/th06_10/_.png" />
+          </div>
+          <div class="ring">
+            <p class="label">かんさつきろく</p>
+            <div class="flextable">
+              <div class="row">
+                <div class="cell">
+                  <img src="./Assets/Images/th06_00/_.png" alt="" /><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="cell">
+                  <img src="./Assets/Images/th06_01/_.png" alt="" /><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="cell">
+                  <img src="./Assets/Images/th06_02/_.png" alt="" /><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="cell">
+                  <img src="./Assets/Images/th06_03/_.png" alt="" /><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+              <div class="row">
+                <div class="cell">
+                  <img src="./Assets/Images/th06_04/_.png" alt="" /><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="cell">
+                  <img src="./Assets/Images/th06_05/_.png" alt="" /><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="cell">
+                  <img src="./Assets/Images/th06_06/_.png" alt="" /><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="cell">
+                  <img src="./Assets/Images/th06_07/_.png" alt="" /><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+              <div class="row">
+                <div class="cell">
+                  <img src="./Assets/Images/th06_08/_.png" alt="" /><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="cell">
+                  <img src="./Assets/Images/th06_09/_.png" alt="" />
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="cell">
+                  <img src="./Assets/Images/th06_10/_.png" alt="" /><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 8c0 .414.336.75.75.75h8.69l-1.22 1.22a.75.75 0 1 0 1.06 1.06l2.5-2.5a.75.75 0 0 0 0-1.06l-2.5-2.5a.75.75 0 1 0-1.06 1.06l1.22 1.22H2.75A.75.75 0 0 0 2 8Z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="cell no-arrow"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="left">
+          <a href="#" class="credit">Credit</a>
+        </div>
+        <div class="right">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+            <path
+              d="M7.557 2.066A.75.75 0 0 1 8 2.75v10.5a.75.75 0 0 1-1.248.56L3.59 11H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.59l3.162-2.81a.75.75 0 0 1 .805-.124ZM11.28 5.72a.75.75 0 1 0-1.06 1.06L11.44 8l-1.22 1.22a.75.75 0 1 0 1.06 1.06l1.22-1.22 1.22 1.22a.75.75 0 1 0 1.06-1.06L13.56 8l1.22-1.22a.75.75 0 0 0-1.06-1.06L12.5 6.94l-1.22-1.22Z" />
+          </svg>
+          <input id="slider" type="range" value="75" class="w-full h-2 rounded-lg cursor-pointer accent-violet-400 bgm" />
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
+            <path
+              d="M7.557 2.066A.75.75 0 0 1 8 2.75v10.5a.75.75 0 0 1-1.248.56L3.59 11H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h1.59l3.162-2.81a.75.75 0 0 1 .805-.124ZM12.95 3.05a.75.75 0 1 0-1.06 1.06 5.5 5.5 0 0 1 0 7.78.75.75 0 1 0 1.06 1.06 7 7 0 0 0 0-9.9Z" />
+            <path d="M10.828 5.172a.75.75 0 1 0-1.06 1.06 2.5 2.5 0 0 1 0 3.536.75.75 0 1 0 1.06 1.06 4 4 0 0 0 0-5.656Z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="overlay hidden">
+      <div class="container">
+        <h2 class="header">Credits & Materials</h2>
+        <div class="splitter"></div>
+        <div class="scrollable-v">
+          <pre>
             # Credit
             Author / Programming
             └ Aika Toki
@@ -53,11 +159,11 @@
             # Materials
 
           </pre>
-				</div>
-			</div>
-		</div>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js"></script>
-		<script src="./main.js"></script>
-	</body>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/matter-js@0.19.0/build/matter.min.js"></script>
+    <script src="./main.js"></script>
+  </body>
 </html>

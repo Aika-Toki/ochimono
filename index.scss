@@ -1,131 +1,206 @@
+@import url("https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap");
 html,
 body {
-	margin: 0;
+  margin: 0;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 .overlay {
-	position: fixed;
-	z-index: 9999;
-	backdrop-filter: blur(10px);
-	background-color: #fffa;
-	width: 80vw;
-	height: 80vh;
-	border: #222 solid 5px;
-	border-radius: 50px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transition-property: height, opacity;
-	transition-duration: 200ms;
-	transition-timing-function: ease-in-out;
-	&.hidden {
-		opacity: 0;
-		overflow: hidden;
-		height: 0px;
-	}
-	.container {
-		display: flex;
-		flex-direction: column;
-		.header {
-			font-weight: bold;
-			text-align: center;
-		}
-		.splitter {
-			height: 3px;
-			width: 50vw;
-			background-image: linear-gradient(to right, #0000, #5599ee, #0000);
-			margin: 10px 0px;
-		}
-		.scrollable-v {
-			overflow-y: scroll;
-			height: 68vh;
-			width: 100%;
-		}
-	}
+  position: fixed;
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+  background-color: #fffa;
+  width: 80vw;
+  height: 80vh;
+  border: #222 solid 5px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition-property: height, opacity;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+  &.hidden {
+    opacity: 0;
+    overflow: hidden;
+    height: 0px;
+    bottom: 0;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    .header {
+      font-weight: bold;
+      text-align: center;
+    }
+    .splitter {
+      height: 3px;
+      width: 50vw;
+      background-image: linear-gradient(to right, #0000, #5599ee, #0000);
+      margin: 10px 0px;
+    }
+    .scrollable-v {
+      overflow-y: scroll;
+      height: 68vh;
+      width: 100%;
+    }
+  }
 }
 .content {
-	width: 100vw;
-	height: 100vh;
-	background-image: url(./Assets/Images/Background/246147.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;
-	.main {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100vw;
-		height: 97vh;
-		backdrop-filter: blur(3px);
-		background-color: #fff3;
-		.left-container {
-			width: 22vw;
-			margin: 10px auto 0;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-evenly;
-			align-items: center;
-		}
-		.container {
-			position: relative;
-			width: 420px;
-			height: 700px;
-			margin: 100px auto 0;
-		}
-		.right-container {
-			width: 22vw;
-		}
-	}
+  width: 100vw;
+  height: 100vh;
+  background-image: url(./Assets/Images/Background/246147.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  .main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 97vh;
+    backdrop-filter: blur(3px);
+    background-color: #fff3;
+    .left-container {
+      width: 24vw;
+      margin: 0 1vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    .container {
+      width: 48vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .message {
+        position: absolute;
+        width: 48vw;
+      }
+      canvas {
+      }
+    }
+    .right-container {
+      padding: 0 1vw;
+      width: 24vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .next {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 24vw;
+        height: 46vh;
+        .label {
+          font-family: "Monomaniac One", sans-serif;
+          display: block;
+          height: 2vh;
+          font-size: 46px;
+        }
+        img {
+          display: block;
+          width: 24vw;
+          height: 44vh;
+        }
+      }
+      .ring {
+        width: 24vw;
+        height: 46vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .label {
+          font-family: "Monomaniac One", sans-serif;
+          font-size: 46px;
+          height: 2vh;
+        }
+        .flextable {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 24vw;
+          height: 44vh;
+          .row {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 24vw;
+            height: 10vh;
+            .cell {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 6vw;
+              img {
+                width: 4vw;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 .footer {
-	display: flex;
-	justify-content: space-between;
-	width: 98vw;
-	padding: 0.5vh 1vw;
-	height: 2vh;
-	background-color: #222;
-	.left {
-		.credit {
-			color: #5599ee;
-		}
-	}
-	.right {
-		display: flex;
-		justify-content: center;
-		*:not(:last-child) {
-			margin-right: 5px;
-		}
-		svg {
-			color: #fff;
-		}
-	}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 98vw;
+  padding: 0.5vh 1vw;
+  height: 2vh;
+  background-color: #222;
+  .left {
+    .credit {
+      color: #5599ee;
+    }
+  }
+  .right {
+    width: 12vw;
+    display: flex;
+    justify-content: center;
+    *:not(:last-child) {
+      margin-right: 5px;
+    }
+    svg {
+      color: #fff;
+    }
+  }
 }
 .message {
-	position: absolute;
-	display: none;
-	text-align: center;
-	top: 200px;
-	width: 100%;
-	background-color: rgba(255, 255, 255, 0.8);
-	padding: 0 0 30px;
+  position: absolute;
+  display: none;
+  text-align: center;
+  top: 200px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0 0 30px;
 }
 .message p {
-	margin: 0px;
+  margin: 0px;
 }
 .mainText {
-	font-size: 64px;
-	color: #f00;
+  font-size: 64px;
+  color: #f00;
 }
 .subText {
-	font-size: 32px;
-	color: #000;
+  font-size: 32px;
+  color: #000;
 }
 
 .button {
-	width: 150px;
-	height: 40px;
-	font-size: 24px;
+  width: 150px;
+  height: 40px;
+  font-size: 24px;
 }

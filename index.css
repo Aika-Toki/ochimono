@@ -1,12 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap");
 html,
 body {
   margin: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  -webkit-user-drag: none;
 }
 
 body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .overlay {
@@ -30,6 +36,7 @@ body {
   opacity: 0;
   overflow: hidden;
   height: 0px;
+  bottom: 0;
 }
 .overlay .container {
   display: flex;
@@ -69,26 +76,93 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
 }
 .content .main .left-container {
-  width: 22vw;
-  margin: 10px auto 0;
+  width: 24vw;
+  margin: 0 1vw;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
 }
 .content .main .container {
-  position: relative;
-  width: 420px;
-  height: 700px;
-  margin: 100px auto 0;
+  width: 48vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.content .main .container .message {
+  position: absolute;
+  width: 48vw;
 }
 .content .main .right-container {
-  width: 22vw;
+  padding: 0 1vw;
+  width: 24vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content .main .right-container .next {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 24vw;
+  height: 46vh;
+}
+.content .main .right-container .next .label {
+  font-family: "Monomaniac One", sans-serif;
+  display: block;
+  height: 2vh;
+  font-size: 46px;
+}
+.content .main .right-container .next img {
+  display: block;
+  width: 24vw;
+  height: 44vh;
+}
+.content .main .right-container .ring {
+  width: 24vw;
+  height: 46vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content .main .right-container .ring .label {
+  font-family: "Monomaniac One", sans-serif;
+  font-size: 46px;
+  height: 2vh;
+}
+.content .main .right-container .ring .flextable {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 24vw;
+  height: 44vh;
+}
+.content .main .right-container .ring .flextable .row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 24vw;
+  height: 10vh;
+}
+.content .main .right-container .ring .flextable .row .cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6vw;
+}
+.content .main .right-container .ring .flextable .row .cell img {
+  width: 4vw;
 }
 
 .footer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 98vw;
   padding: 0.5vh 1vw;
   height: 2vh;
@@ -98,6 +172,7 @@ body {
   color: #5599ee;
 }
 .footer .right {
+  width: 12vw;
   display: flex;
   justify-content: center;
 }
