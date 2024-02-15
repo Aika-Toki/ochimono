@@ -222,9 +222,7 @@ body {
   text-shadow: 2px 2px 4px #f90, -2px -2px 4px #f90, -2px 2px 4px #f90, 2px -2px 4px #f90, 2px 0 4px #f90, -2px 0 4px #f90, 0 2px 4px #f90, 0 -2px 4px #f90;
   font-size: 64px;
   justify-content: center;
-}
-.content .main .left-container .upperLeft .score .base > *:nth-last-child(3n) {
-  margin-left: 10px;
+  align-items: center;
 }
 .content .main .left-container .upperLeft .score .base .character {
   width: 63px;
@@ -315,7 +313,6 @@ body {
 .content .main .right-container .next img {
   display: block;
   width: 18vw;
-  height: 40vh;
 }
 .content .main .right-container .ring {
   width: 23vw;
