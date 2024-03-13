@@ -1,4 +1,4 @@
-const testdata = { title: "test", tag: ["Light", "IDE"], code: "#3F0E40,#000000,#1164A3,#FFFFFF,#4D2A51,#FFFFFF,#2BAC76,#CD2553,#350D36,#FFFFFF", author: "User" };
+const testdata = { ym: "2024/3", date: 13, uid: "test:00000000-0000-0000-0000-000000000000", score: 123456 };
 const dataParse = () => {
   let row = Number(Browser.inputBox("Row?"));
   // let row = 1;
@@ -7,11 +7,7 @@ const dataParse = () => {
   let contentData = range[1];
   let cipher = new cCryptoGS.Cipher(base64.btoa(range[0]), "tripledes");
   contentData = JSON.parse(cipher.decrypt(contentData));
-  let csc = JSON.stringify(
-    { uuid: range[0], data: { id: contentData["id"], title: contentData["title"], tag: contentData["tag"], code: contentData["code"], author: contentData["author"] } },
-    "",
-    "\t"
-  );
+  let csc = JSON.stringify({ uuid: range[0], data: { uid: contentData["uid"], ym: contentData["ym"], date: contentData["date"], score: contentData["score"] } }, "", "\t");
   // Logger.log(csc);
   Browser.msgBox(csc);
 };
@@ -24,18 +20,18 @@ const createtest = () => {
   // deleteMethod("84e94dce-02e1-486a-b3e3-2820b647e664")
 };
 function modalCreate() {
-  let title = Browser.inputBox("Title");
-  let tag = Browser.inputBox("Tag");
-  let code = Browser.inputBox("code");
-  let author = Browser.inputBox("author");
-  let data = [title, tag, code, author];
+  let uid = Browser.inputBox("uid");
+  let ym = Browser.inputBox("ym");
+  let date = Browser.inputBox("date");
+  let score = Browser.inputBox("score");
+  let data = [uid, ym, date, score];
   if (data.includes("cancel")) return;
   data[1] = tag.split(" ");
   let result = {};
-  result["title"] = data[0];
-  result["tag"] = data[1];
-  result["code"] = data[2];
-  result["author"] = data[3];
+  result["uid"] = data[0];
+  result["ym"] = data[1];
+  result["date"] = data[2];
+  result["score"] = data[3];
   let resultText = base64.btoa(JSON.stringify(result));
   createMethod(resultText);
 }
@@ -59,9 +55,9 @@ const sorter = (array) => {
   result = result.sort((a, b) => {
     let a_cipher = new cCryptoGS.Cipher(base64.btoa(a[0]), "tripleDES");
     let b_cipher = new cCryptoGS.Cipher(base64.btoa(b[0]), "tripleDES");
-    let __a = JSON.parse(a_cipher.decrypt(a[1])).title;
-    let __b = JSON.parse(b_cipher.decrypt(b[1])).title;
-    return __a.localeCompare(__b);
+    let __a = JSON.parse(a_cipher.decrypt(a[1])).score;
+    let __b = JSON.parse(b_cipher.decrypt(b[1])).score;
+    return __b - __a;
   });
   return result;
 };
@@ -78,7 +74,7 @@ const searchTest = () => {
 };
 
 const intialzeSheet = () => {
-  const file = SpreadsheetApp.openById("1eS19zp0-9BWvpoKDPM7KBykTYgMeiEC7x7pdDb2MwNM");
+  const file = SpreadsheetApp.openById("1KHuPtLnkrB9XECj_N4CcZ6nrpF3bLVwcuHUqOeNvtgI");
   const sheet = file.getSheetByName("シート1");
   return sheet;
 };
@@ -215,53 +211,28 @@ function doPost(e) {
   return returnJson({ status: true });
 }
 
-function doGet(e) {
+function doGet() {
   // if(!e) return returnJson({"status":false, "content":"Missing parameter: Undefined"});
-  const param = e ? e.parameter : {};
-
-  let result = [];
-  if (!param.hasOwnProperty("q") && !param.hasOwnProperty("qt")) {
-    let data = readsMethod();
-    data = data.sort((a, b) => b[2] - a[2]);
-    data.splice(99, data.length);
-    data = data
-      .map((e) => {
-        let cipher = new cCryptoGS.Cipher(base64.btoa(e[0]), "tripledes");
-        return cipher.decrypt(e[1]);
-      })
-      .sort((a, b) => JSON.parse(a).title.localeCompare(JSON.parse(b).title));
-    result = data;
-  } else if (param.hasOwnProperty("q") || param.hasOwnProperty("qt")) {
-    let data = readsMethod();
-    if (param.hasOwnProperty("q"))
-      data = data.filter((e) => {
-        let cipher = cCryptoGS.Cipher(base64.btoa(e[0]), "tripledes");
-        let d = JSON.parse(cipher.decrypt(e[1]));
-        return d.title.toLowerCase().includes(param.q.toLowerCase());
-      });
-    if (param.hasOwnProperty("qt"))
-      JSON.parse(param.qt)
-        .map((e) => e.toLowerCase())
-        .forEach(
-          (e) =>
-            (data = data.filter((_e) => {
-              let cipher = cCryptoGS.Cipher(base64.btoa(_e[0]), "tripledes");
-              let d = JSON.parse(cipher.decrypt(_e[1]));
-              let t = d.tag;
-              t = t.map((__e) => __e.toLowerCase());
-              return t.includes(e);
-            }))
-        );
-    data = data.sort((a, b) => b[2] - a[2]);
-    data.splice(99, data.length);
-    data = data
-      .map((e) => {
-        let cipher = cCryptoGS.Cipher(base64.btoa(e[0]), "tripledes");
-        return cipher.decrypt(e[1]);
-      })
-      .sort((a, b) => JSON.parse(a).title.localeCompare(JSON.parse(b).title));
-    result = data;
-  }
+  let result = {};
+  let query = {};
+  let now = new Date();
+  let yestaday = new Date(new Date().setDate(now.getDate() - 1));
+  let lastMonth = new Date(new Date().setMonth(now.getMonth() - 1));
+  query["nm"] = `${now.getFullYear()}/${now.getMonth() + 1}`;
+  query["nd"] = now.getDate();
+  query["lm"] = `${lastMonth.getFullYear()}/${lastMonth.getMonth() + 1}`;
+  query["ld"] = yestaday.getDate();
+  Logger.log(query);
+  let data = readsMethod();
+  data = data.sort((a, b) => b[2] - a[2]);
+  data.splice(99, data.length);
+  data = data
+    .map((e) => {
+      let cipher = new cCryptoGS.Cipher(base64.btoa(e[0]), "tripledes");
+      return cipher.decrypt(e[1]);
+    })
+    .sort((a, b) => JSON.parse(a).title.localeCompare(JSON.parse(b).title));
+  result = data;
   let j = { status: true };
   j["content"] = result;
   return returnJson(j);
