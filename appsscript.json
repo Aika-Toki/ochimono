@@ -1,0 +1,21 @@
+{
+  "timeZone": "Asia/Tokyo",
+  "dependencies": {
+    "libraries": [
+      {
+        "userSymbol": "cCryptoGS",
+        "version": "1",
+        "libraryId": "1ov6vkj_OdzUbODd_1tcM8hn3sI1dlw7Ir8gKAlZxSAs3-nJIW3bfOJvV",
+        "developmentMode": false
+      },
+      {
+        "userSymbol": "base64",
+        "version": "1",
+        "libraryId": "1V9vS-HGXPNBRKFcutnMnhZXmttY45b3Mp11vDz5qDYXHG-RG7A-XSDdI",
+        "developmentMode": false
+      }
+    ]
+  },
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8"
+}

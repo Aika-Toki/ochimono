@@ -224,15 +224,18 @@ function doGet() {
   query["ld"] = yestaday.getDate();
   Logger.log(query);
   let data = readsMethod();
-  data = data.sort((a, b) => b[2] - a[2]);
-  data.splice(99, data.length);
   data = data
     .map((e) => {
       let cipher = new cCryptoGS.Cipher(base64.btoa(e[0]), "tripledes");
       return cipher.decrypt(e[1]);
     })
-    .sort((a, b) => JSON.parse(a).title.localeCompare(JSON.parse(b).title));
-  result = data;
+    .sort((a, b) => JSON.parse(b).score - JSON.parse(a).score);
+  data.splice(99, data.length);
+  result["nm"] = data.filter(e=>JSON.parse(e).ym == query.nm),
+  result["lm"] = data.filter(e=>JSON.parse(e).ym == query.lm),
+  result["nd"] = data.filter(e=>JSON.parse(e).ym == query.nm && JSON.parse(e).date == query.nd),
+  result["ld"] = data.filter(e=>JSON.parse(e).ym == query.nm && JSON.parse(e).date == query.ld),
+  result["t"] = data;
   let j = { status: true };
   j["content"] = result;
   return returnJson(j);
