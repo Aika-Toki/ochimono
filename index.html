@@ -3,25 +3,24 @@
   <head>
     <title>Bubble Game</title>
     <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/TextPlugin.min.js"></script>
     <link rel="stylesheet" type="text/css" href="./index.css" media="screen" />
   </head>
 
   <body>
+    <div class="margin"></div>
     <div class="content">
       <div class="main">
         <div class="result hidable"></div>
         <div class="title hidable">
-          <div class="logo">
-            <img src="./Assets/Images/113652.png" alt="" />
-          </div>
-          <div class="menu">
-            <div class="btn start"><p>ゲームスタート</p></div>
-            <div class="btn disabled rank"><p>ランキング</p></div>
-            <div class="btn disabled achievement"><p>実績</p></div>
-            <div class="btn disabled setting"><p>設定</p></div>
-          </div>
+          <div class="logo"></div>
+          <div class="btn start"><p>ゲームスタート</p></div>
+          <div class="btn disabled rank"><p>ランキング</p></div>
+          <div class="btn disabled achievement"><p>実績</p></div>
+          <div class="btn disabled setting"><p>設定</p></div>
         </div>
-        <div class="left-container">
+        <div class="game">
           <div class="upperLeft">
             <p class="label">スコア</p>
             <div class="score">
@@ -29,19 +28,32 @@
               <div class="combo"></div>
             </div>
           </div>
-          <div class="bottomLeft"></div>
-        </div>
-        <div class="container">
-          <div class="message"></div>
-        </div>
-        <div class="right-container">
+          <div class="bottomLeft">
+            <p class="label">ランキング</p>
+            <div class="rankingTable">
+              <p class="first rank">1</p>
+              <p class="firstName name">---</p>
+              <p class="firstScore score">-</p>
+              <div class="rankDiv"></div>
+              <p class="second rank">2</p>
+              <p class="secondName name">---</p>
+              <p class="secondScore score">取得中</p>
+              <div class="rankDiv"></div>
+              <p class="third rank">3</p>
+              <p class="thirdName name">---</p>
+              <p class="thirdScore score">-</p>
+            </div>
+          </div>
+          <div class="container">
+            <div class="message"></div>
+          </div>
           <div class="next">
             <p class="label">ネクスト</p>
-            <img src="./Assets/Images/Character/0610.png" />
+            <div class="image"></div>
           </div>
           <div class="ring">
             <p class="label">かんさつキロク</p>
-            <img src="./Assets/Images/115411.png" />
+            <div class="image"></div>
           </div>
         </div>
       </div>
@@ -62,20 +74,20 @@
           </svg>
         </div>
       </div>
-    </div>
-    <div class="overlay hidable hidden">
-      <div class="container">
-        <h2 class="header">Credits & Materials</h2>
-        <div class="splitter"></div>
-        <div class="scrollable-v">
-          <pre>
-            # Credit
-            Author / Programming
-            └ Aika Toki
-            
-            # Materials
-            
-          </pre>
+      <div class="overlay hidable hidden">
+        <div class="container">
+          <h2 class="header">Credits & Materials</h2>
+          <div class="splitter"></div>
+          <div class="scrollable-v">
+            <pre>
+              # Credit
+              Author / Programming
+              └ Aika Toki
+              
+              # Materials
+              
+            </pre>
+          </div>
         </div>
       </div>
     </div>

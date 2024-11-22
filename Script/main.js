@@ -1,3 +1,5 @@
+let game;
+let scoreWidth;
 let levels = [];
 let Bubble;
 preload();
@@ -69,17 +71,17 @@ const BUBBLE_COLORS = {
   10: "#ffff7f",
 };
 const BUBBLE_TEXTURES = {
-  0: ["./Assets/Images/Character/0600.png", 0.16], // Daiyousei
-  1: ["./Assets/Images/Character/0601.png", 0.23], // Rumia
-  2: ["./Assets/Images/Character/0602.png", 0.305], // Cirno
-  3: ["./Assets/Images/Character/0603.png", 0.375], // Meirin
-  4: ["./Assets/Images/Character/0604.png", 0.475], // Koakuma
-  5: ["./Assets/Images/Character/0605.png", 0.55], // Patchouli
-  6: ["./Assets/Images/Character/0606.png", 0.63], // Sakuya
-  7: ["./Assets/Images/Character/0607.png", 0.71], // Remilia
-  8: ["./Assets/Images/Character/0608.png", 0.79], // Flandre
-  9: ["./Assets/Images/Character/0609.png", 0.87], // Marisa
-  10: ["./Assets/Images/Character/0610.png", 0.95], // Reimu
+  0: ["./Assets/Images/Character/0600.png.webp", 0.16], // Daiyousei
+  1: ["./Assets/Images/Character/0601.png.webp", 0.23], // Rumia
+  2: ["./Assets/Images/Character/0602.png.webp", 0.305], // Cirno
+  3: ["./Assets/Images/Character/0603.png.webp", 0.375], // Meirin
+  4: ["./Assets/Images/Character/0604.png.webp", 0.475], // Koakuma
+  5: ["./Assets/Images/Character/0605.png.webp", 0.55], // Patchouli
+  6: ["./Assets/Images/Character/0606.png.webp", 0.63], // Sakuya
+  7: ["./Assets/Images/Character/0607.png.webp", 0.71], // Remilia
+  8: ["./Assets/Images/Character/0608.png.webp", 0.79], // Flandre
+  9: ["./Assets/Images/Character/0609.png.webp", 0.87], // Marisa
+  10: ["./Assets/Images/Character/0610.png.webp", 0.95], // Reimu
 };
 
 const OBJECT_CATEGORIES = {
@@ -99,9 +101,12 @@ class BubbeGame {
   defaultX = WIDTH / 2;
   message;
   combo;
+  scoreBoardURI;
+  scoreBoardSheet;
 
   constructor(container, message, scoreChangeCallBack) {
     this.message = message;
+    this.scoreBoardURI = "https://script.google.com/macros/s/AKfycbxUeoA_v6nLRSlt2jJzCnG4OXt7s4VMDAjmdXhTkq3K7Iqd6JO5XeInswroP3Cu0VWA/exec";
     this.scoreChangeCallBack = scoreChangeCallBack;
     this.engine = Engine.create({
       constraintIterations: 3,
@@ -186,7 +191,40 @@ class BubbeGame {
       this.gameStatus = "canput";
       this.createNewBubble();
       this.resetMessage();
+      this.getScoreBoard();
     }
+  }
+
+  getScoreBoard() {
+    fetch(this.scoreBoardURI, {
+      method: "GET",
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        console.debug(data);
+        this.switchScoreBoard(data.content);
+        setInterval(() => {
+          this.switchScoreBoard(data.content);
+        }, 10000);
+      });
+  }
+
+  switchScoreBoard(data) {
+    const gsapText = (selector, text) => gsap.to(document.querySelector(selector), { duration: duration, text: text, ease: "ease" });
+    let duration = 0.2;
+    if (this.scoreBoardSheet == 5 || typeof this.scoreBoardSheet != "number") {
+      this.scoreBoardSheet = 0;
+    }
+    let $ = ["nd", "ld", "nm", "lm", "t"][this.scoreBoardSheet],
+      $a = ["今日の", "昨日の", "今月の", "先月の", "総合"][this.scoreBoardSheet];
+    gsapText(".bottomLeft > .label", $a + "ランキング");
+    gsapText(".firstScore", data[$].length > 0 ? data[$][0].score.toLocaleString("en-us") : "-");
+    gsapText(".secondScore", data[$].length > 1 ? data[$][1].score.toLocaleString("en-us") : "-");
+    gsapText(".thirdScore", data[$].length > 2 ? data[$][2].score.toLocaleString("en-us") : "-");
+    gsapText(".firstName", data[$].length > 0 ? data[$][0].uid.split(":")[0] : "---");
+    gsapText(".secondName", data[$].length > 1 ? data[$][1].uid.split(":")[0] : "---");
+    gsapText(".thirdName", data[$].length > 2 ? data[$][2].uid.split(":")[0] : "---");
+    this.scoreBoardSheet++;
   }
 
   createNewBubble() {
@@ -196,7 +234,7 @@ class BubbeGame {
     // バブルの大きさをランダムに決定
     levels.push(Math.floor(Math.random() * 5));
     const level = levels.shift();
-    document.querySelector(".next img").src = BUBBLE_TEXTURES[levels[0]][0];
+    document.querySelector(".next .image").style.backgroundImage = "url(" + BUBBLE_TEXTURES[levels[0]][0] + ")";
     const radius = level * 10 + 20;
     const sprite = BUBBLE_TEXTURES[level]
       ? {
@@ -392,7 +430,7 @@ class BubbeGame {
   setCombo(combo) {
     const area = document.querySelector(".score .combo");
     let el = document.createElement("p");
-    el.textContent = combo > 1 ? combo + " コンボ" : "";
+    el.textContent = combo > 1 ? combo + " コンボ !" : " ";
     area.replaceChildren(el);
     setTimeout(() => {
       el.animate({ transform: ["scale(1.2) rotateZ(-10deg)", "scale(1) rotateZ(0deg)"] }, { duration: 400, easing: "linear", fill: "forwards" });
@@ -401,20 +439,47 @@ class BubbeGame {
 }
 
 window.onload = () => {
+  gsap.registerPlugin(TextPlugin);
   const container = document.querySelector(".container");
   const message = document.querySelector(".message");
+  scoreWidth = document.querySelector(".upperLeft").getBoundingClientRect().width - 20;
   const onChangeScore = (val) => {
     const score = document.querySelector(".score .base");
     // score.replaceChildren(val);
     // console.log(val);
     score.innerHTML = val;
-    for (let size = 64; score.querySelector("p").scrollWidth > score.getBoundingClientRect().width && size > 1; size--) {
+    for (let size = 64; score.querySelector("p").scrollWidth > scoreWidth && size > 1; size--) {
       score.style.fontSize = size + "px";
     }
   };
   // とりあえずゲーム作成
-  const game = new BubbeGame(container, message, onChangeScore);
+  game = new BubbeGame(container, message, onChangeScore);
   Bubble = game;
   // とりあえず初期化する
   game.init();
+
+  const scaleAdjust = (element, container, margin) => {
+    let elementSize = 1;
+    element = document.querySelector(element);
+    container = document.querySelector(container);
+    if (element.getBoundingClientRect().height > container.getBoundingClientRect().height - margin && element.getBoundingClientRect().width > container.getBoundingClientRect().width - margin) {
+      for (
+        let i = 0;
+        i < 100 &&
+        element.getBoundingClientRect().height > container.getBoundingClientRect().height - margin &&
+        element.getBoundingClientRect().width > container.getBoundingClientRect().width - margin;
+        i++
+      ) {
+        elementSize -= 0.01;
+        element.style.transform = `scale(${elementSize})`;
+      }
+    }
+  };
+  setInterval(() => {
+    scaleAdjust(".content", "body", 20);
+    scaleAdjust(".main", ".content", 50);
+    scaleAdjust(".container > canvas", ".container", 50);
+  }, 100);
+  // debug
+  //game.start();
 };
